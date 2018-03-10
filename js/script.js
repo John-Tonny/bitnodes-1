@@ -1,8 +1,8 @@
 (function() {
 
     // request the JSON country and bitnode files
-    var countryJson = d3.json("data/countries.json")
-    bitnodesCsv = d3.csv("data/bitnodes.csv")
+    var countryJson = d3.json("data/countries.json"),
+        bitnodesCsv = d3.csv("data/bitnodes.csv")
 
     //use promise to call files, then call drawMap function
     Promise.all([countryJson, bitnodesCsv]).then(drawMap, error);
@@ -113,7 +113,7 @@
             .on('change', onchange) // listen for change
 
         // array to hold select options
-        var uniqueTypes = ["All Organizations"];
+        var uniqueTypes = [];
 
         // loop through all features and push unique types to array
         bitnodesData.forEach(function(bitnode) {
@@ -123,6 +123,9 @@
 
         // sort types alphabeticaly in array
         uniqueTypes.sort();
+
+        // place All Organizations on top of list
+        uniqueTypes.unshift("All Organizations")
 
         // select all the options (that don't exist yet)
         dropdown.selectAll('option')
